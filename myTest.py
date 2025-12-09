@@ -19,13 +19,13 @@ BRIGHT_SCALE = 3.0                 # how bright edges become
 # INIT
 # -----------------------
 pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode( (WIDTH, HEIGHT) )
 pygame.display.set_caption("Matrix Silhouette - Full Grid Method")
 
 font = pygame.font.SysFont("Consolas", CELL_SIZE, bold=True)
 clock = pygame.time.Clock()
 
-cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
 
@@ -36,7 +36,8 @@ rows = HEIGHT // CELL_SIZE
 offsets = [random.uniform(0, rows) for _ in range(cols)]
 
 def rand_char():
-    return random.choice("0123456789日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ:・.=*+-<>")
+    return random.choice("0000000000000000000111111111111111111111123456789Z:・.=*+-<>")
+# 日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ
 
 # Random characters for entire grid
 chars = [[rand_char() for _ in range(cols)] for _ in range(rows)]
