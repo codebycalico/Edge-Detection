@@ -105,5 +105,9 @@ while running:
     pygame.display.flip()
     clock.tick(30)
 
+    # Break the loop if 'q' is pressed
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
 cap.release()
 pygame.quit()

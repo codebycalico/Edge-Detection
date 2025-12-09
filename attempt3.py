@@ -12,7 +12,7 @@ WIDTH = 800
 HEIGHT = 600
 FONT_SIZE = 16
 
-FALL_SPEED = 0.45
+FALL_SPEED = 0.3
 BASE_SPAWN_CHANCE = 0.005       # background rain density
 EDGE_SPAWN_MULTIPLIER = 0.25   # more rain where edges detected
 HEAD_WHITE_PROB = 0.08
@@ -39,7 +39,7 @@ columns = WIDTH // FONT_SIZE
 streams = [[] for _ in range(columns)]
 
 def random_char():
-    return random.choice(string.ascii_letters + string.digits)
+    return random.choice("0123456789日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ:・.=*+-<>")
 
 class Stream:
     def __init__(self, col, y, length):
@@ -58,6 +58,7 @@ class Stream:
 # --------------------------
 running = True
 last_good_frame = time.time()
+prev_char = "日"
 
 while running:
     for event in pygame.event.get():
@@ -96,7 +97,7 @@ while running:
 
         if random.random() < spawn_prob:
             length = random.randint(TRAIL_MIN, TRAIL_MAX)
-            y_start = random.uniform(-length * FONT_SIZE, 0)
+            y_start = random.uniform(-length * (FONT_SIZE), 0)
             streams[col].append(Stream(col, y_start, length))
 
     # --- UPDATE + DRAW STREAMS ---
@@ -109,8 +110,14 @@ while running:
                 cy = int(s.y - r * FONT_SIZE)
                 if cy < 0 or cy >= HEIGHT:
                     continue
-
+                
                 char = random_char()
+
+                if random.randint(0, 50) <= 2:
+                    prev_char = char
+                else: 
+                    char = prev_char
+
                 x = col * FONT_SIZE
 
                 if r == 0:
